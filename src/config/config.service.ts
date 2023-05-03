@@ -1,7 +1,7 @@
-import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import { TypeOrmModuleOptions } from "@nestjs/typeorm";
 
 /* eslint-disable */
-require('dotenv').config();
+require("dotenv").config();
 
 class ConfigService {
   constructor(private env: { [k: string]: string | undefined }) {}
@@ -22,19 +22,25 @@ class ConfigService {
 
   public getTypeOrmConfig(): TypeOrmModuleOptions {
     return {
-      type: 'postgres',
-      url: this.getValue('DATABASE_URL'),
-      password: this.getValue('DATABASE_PASSWORD'),
+      type: "postgres",
+      host: this.getValue("DATABASE_HOST"),
+      port: Number(this.getValue("DATABASE_PORT")),
+      username: this.getValue("DATABASE_USERNAME"),
+      password: this.getValue("DATABASE_PASSWORD"),
+      database: this.getValue("DATABASE_NAME"),
       synchronize: true,
       logging: true,
-      entities: [__dirname + '/../**/*.entity{.ts,.js}'],
+      entities: [__dirname + "/../**/*.entity{.ts,.js}"],
     };
   }
 }
 
 const configService = new ConfigService(process.env).ensureValues([
-  'DATABASE_URL',
-  'DATABASE_PASSWORD',
+  "DATABASE_PORT",
+  "DATABASE_USERNAME",
+  "DATABASE_PASSWORD",
+  "DATABASE_NAME",
+  "DATABASE_HOST",
 ]);
 
 export { configService };
