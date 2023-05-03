@@ -28,8 +28,6 @@ class ConfigService {
       username: this.getValue("DATABASE_USERNAME"),
       password: this.getValue("DATABASE_PASSWORD"),
       database: this.getValue("DATABASE_NAME"),
-      synchronize: true,
-      logging: true,
       entities: [__dirname + "/../**/*.entity{.ts,.js}"],
     };
   }
